@@ -1,5 +1,6 @@
+
 import React, { useState, useRef, useEffect } from 'react';
-import { MousePointer2, Hand, StickyNote, Plus, Minus, Trash2, Move } from 'lucide-react';
+import { MousePointer2, Hand, Plus, Minus, Trash2, Move } from 'lucide-react';
 import { Project, WhiteboardNote, Member } from '../types';
 
 interface WhiteboardProps {
@@ -186,7 +187,7 @@ const Whiteboard: React.FC<WhiteboardProps> = ({ project, currentUser, onUpdateN
           }}
         >
           {project.whiteboardNotes.map((note) => {
-            const author = project.team.find(m => m.id === note.authorId);
+            const author = project.team.find(m => m.id === note.authorId) || (note.authorId === currentUser.id ? currentUser : undefined);
             return (
               <div
                 key={note.id}

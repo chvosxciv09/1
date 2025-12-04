@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Clock, TrendingUp, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Clock, TrendingUp, AlertCircle } from 'lucide-react';
 import { Project, ProjectStatus } from '../types';
 
 interface ProjectCardProps {
@@ -32,7 +33,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
               key={member.id} 
               src={member.avatar} 
               alt={member.name}
-              className="w-8 h-8 rounded-full border-2 border-slate-800 object-cover" 
+              className="w-8 h-8 rounded-full border-2 border-slate-800 object-cover bg-slate-700" 
             />
           ))}
           {project.team.length > 3 && (

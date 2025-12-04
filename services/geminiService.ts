@@ -58,7 +58,7 @@ export const analyzeFeedback = async (text: string, currentPhase: string): Promi
       config: {
         responseMimeType: "application/json",
         responseSchema: analysisSchema,
-        temperature: 0.3, // 保持分析的客观性
+        temperature: 0.3,
       },
     });
 
@@ -70,5 +70,58 @@ export const analyzeFeedback = async (text: string, currentPhase: string): Promi
   } catch (error) {
     console.error("分析反馈时出错:", error);
     throw error;
+  }
+};
+
+export const summarizeProjectFile = async (fileContent: string, fileName: string): Promise<string> => {
+  try {
+    const prompt = `
+      请阅读以下工业设计项目文件（文件名: ${fileName}）的内容，并生成一份专业的摘要。
+      摘要应包含关键发现、数据点或设计要求。
+      
+      文件内容:
+      "${fileContent.substring(0, 10000)}" // 限制长度以防止超出 token
+    `;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+    });
+
+    return response.text || "无法生成摘要";
+  } catch (error) {
+    console.error("总结文件时出错:", error);
+    return "总结失败，请稍后重试。";
+  }
+};
+
+export const askProjectAssistant = async (query: string, projectContext: string): Promise<string> => {
+  try {
+    const prompt = `
+      你是一个名为 "DesignFlow Assistant" 的智能助手，服务于一家工业设计工作室。
+      
+      以下是当前工作室所有项目的实时数据（JSON格式）：
+      ${projectContext}
+      
+      用户问题: "${query}"
+      
+      请根据提供的项目数据回答用户问题。
+      规则：
+      1. 如果用户询问进度，请根据 'progress' 字段回答。
+      2. 如果用户询问截止日期，请根据 'dueDate' 提醒剩余时间。
+      3. 如果用户询问特定项目，请提供该项目的详细状态、阶段和团队信息。
+      4. 保持回答简练、专业、有帮助。
+      5. 使用中文回答。
+    `;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+    });
+
+    return response.text || "抱歉，我暂时无法回答这个问题。";
+  } catch (error) {
+    console.error("AI 助手出错:", error);
+    return "系统繁忙，请稍后再试。";
   }
 };

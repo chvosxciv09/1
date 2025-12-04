@@ -49,6 +49,23 @@ export interface WhiteboardNote {
   createdAt: string;
 }
 
+export interface ProjectFile {
+  id: string;
+  name: string;
+  type: string;
+  size: number;
+  uploadedAt: string;
+  uploadedBy: string;
+}
+
+export interface ProjectPhase {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  status: 'pending' | 'in_progress' | 'completed';
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -58,8 +75,11 @@ export interface Project {
   status: ProjectStatus;
   progress: number; // 0-100
   currentPhase: DesignPhase;
+  startDate: string;
   dueDate: string;
   team: Member[];
   feedbackLogs: LogEntry[];
   whiteboardNotes: WhiteboardNote[];
+  phases: ProjectPhase[];
+  files: ProjectFile[];
 }
