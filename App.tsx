@@ -9,7 +9,7 @@ import FileHub from './components/FileHub';
 import LoginScreen from './components/LoginScreen';
 import AIAssistant from './components/AIAssistant';
 import { Project, ProjectStatus, DesignPhase, LogEntry, WhiteboardNote, Member, ProjectFile } from './types';
-import { ChevronRight, ArrowLeft, LayoutList, Users, PieChart, BarChart3, Clock, Lightbulb, FolderOpen } from 'lucide-react';
+import { ChevronRight, ArrowLeft, LayoutList, Users, PieChart, BarChart, Clock, Lightbulb, FolderOpen } from 'lucide-react';
 
 // Mock Data (Initial State)
 const MOCK_PROJECTS: Project[] = [
@@ -348,7 +348,7 @@ export default function App() {
                             </div>
                             <div className="bg-emerald-600/10 border border-emerald-500/20 p-6 rounded-xl relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-10">
-                                    <BarChart3 size={64} className="text-emerald-500" />
+                                    <BarChart size={64} className="text-emerald-500" />
                                 </div>
                                 <h3 className="text-emerald-400 text-sm font-semibold uppercase tracking-wider mb-2">进度正常</h3>
                                 <p className="text-3xl font-bold text-white">3</p>

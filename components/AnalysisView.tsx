@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { Sparkles, ArrowRight, MessageSquare, AlertTriangle, CheckSquare, HelpCircle, Copy } from 'lucide-react';
+import { Sparkles, ArrowRight, MessageSquare, AlertTriangle, SquareCheck, CircleHelp, Copy } from 'lucide-react';
 import { analyzeFeedback } from '../services/geminiService';
 import { Project, LogEntry } from '../types';
 
@@ -126,7 +127,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ project, onAnalysisComplete
                                 {/* Action Items */}
                                 <div className="bg-emerald-900/10 rounded-lg p-3 border border-emerald-900/20">
                                     <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                        <CheckSquare size={14} />
+                                        <SquareCheck size={14} />
                                         明确需求
                                     </h4>
                                     <ul className="space-y-2">
@@ -160,7 +161,7 @@ const AnalysisView: React.FC<AnalysisViewProps> = ({ project, onAnalysisComplete
                             {log.analysis?.suggested_questions && log.analysis.suggested_questions.length > 0 && (
                                 <div className="bg-indigo-900/10 rounded-lg p-4 border border-indigo-900/20">
                                     <h4 className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                        <HelpCircle size={14} />
+                                        <CircleHelp size={14} />
                                         建议沟通话术
                                     </h4>
                                     <div className="space-y-2">

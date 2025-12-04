@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Project } from '../types';
 
@@ -7,19 +8,28 @@ interface TimelineProps {
 }
 
 const Timeline: React.FC<TimelineProps> = ({ projects, title }) => {
-  // Calculate date range
-  const dates = projects.flatMap(p => [new Date(p.startDate).getTime(), new Date(p.dueDate).getTime()]);
+  // Calculate date range securely
+  const dates = projects.flatMap(p => {
+    const start = new Date(p.startDate).getTime();
+    const end = new Date(p.dueDate).getTime();
+    return [
+      isNaN(start) ? new Date().getTime() : start,
+      isNaN(end) ? new Date().getTime() : end
+    ];
+  });
+  
   const minDate = dates.length ? Math.min(...dates) : new Date().getTime();
   const maxDate = dates.length ? Math.max(...dates) : new Date().getTime() + 1000 * 60 * 60 * 24 * 30;
   
   // Add buffer
   const startTimestamp = minDate - 1000 * 60 * 60 * 24 * 7;
   const endTimestamp = maxDate + 1000 * 60 * 60 * 24 * 7;
-  const totalDuration = endTimestamp - startTimestamp;
+  const totalDuration = Math.max(endTimestamp - startTimestamp, 1); // Avoid division by zero
 
   const getPosition = (dateStr: string) => {
     const time = new Date(dateStr).getTime();
-    return ((time - startTimestamp) / totalDuration) * 100;
+    if (isNaN(time)) return 0;
+    return Math.max(0, Math.min(100, ((time - startTimestamp) / totalDuration) * 100));
   };
 
   const todayPos = ((new Date().getTime() - startTimestamp) / totalDuration) * 100;

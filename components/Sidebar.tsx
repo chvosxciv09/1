@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { LayoutGrid, FolderOpen, Calendar, Users, Settings, PlusCircle } from 'lucide-react';
+import { LayoutGrid, FolderOpen, Calendar, Users, Settings, CirclePlus } from 'lucide-react';
 
 interface SidebarProps {
   activeView: string;
@@ -42,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, setActiveView }) => {
 
       <div className="p-4 border-t border-slate-800">
         <button className="w-full flex items-center gap-2 justify-center bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg transition-colors font-medium text-sm">
-          <PlusCircle size={18} />
+          <CirclePlus size={18} />
           <span>新建项目</span>
         </button>
         <button className="w-full flex items-center gap-3 px-4 py-3 mt-2 text-slate-500 hover:text-slate-300 transition-colors">
